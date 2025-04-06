@@ -1,0 +1,30 @@
+# Frontend and Backend node_modules
+crimecard-frontend/node_modules/
+crimecard-backend/node_modules/
+
+# Frontend and Backend build outputs
+crimecard-frontend/build/
+crimecard-backend/build/
+crimecard-backend/dist/
+
+# Frontend and Backend env files
+crimecard-frontend/.env
+crimecard-backend/.env
+crimecard-frontend/.env.local
+crimecard-frontend/.env.development.local
+crimecard-frontend/.env.test.local
+crimecard-frontend/.env.production.local
+crimecard-backend/.env.local
+crimecard-backend/.env.development.local
+crimecard-backend/.env.test.local
+crimecard-backend/.env.production.local
+
+# Misc
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional: coverage reports, if using tests
+crimecard-frontend/coverage/
+crimecard-backend/coverage/
