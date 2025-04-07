@@ -57,19 +57,20 @@ cd crimecard
 
 2. Install frontend dependencies
 ```bash
-cd client
+cd crimecard-frontend
 npm install
 ```
 
 3. Install backend dependencies
 ```bash
-cd ../server
+cd ../crimecard-backend
 npm install
+
 ```
 
 4. Set up Python environment for NLP service
 ```bash
-cd ../nlp-service
+//stay in crimecard-backend folder
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
@@ -88,47 +89,22 @@ cp .env.example .env
 mongod
 ```
 
-2. Start the NLP service
+
+2. Start the backend server
 ```bash
-cd nlp-service
-python app.py
+cd crimecard-backend
+node server.js
 ```
 
-3. Start the backend server
+3. Start the frontend client
 ```bash
-cd ../server
-npm start
-```
-
-4. Start the frontend client
-```bash
-cd ../client
+cd crimecard-frontend
 npm start
 ```
 
 The application will be available at http://localhost:3000
 
-## API Documentation
 
-The API documentation is available at http://localhost:5000/api-docs when the server is running.
-
-## Testing
-
-Run the test suite for each component:
-
-```bash
-# Frontend tests
-cd client
-npm test
-
-# Backend tests
-cd ../server
-npm test
-
-# NLP service tests
-cd ../nlp-service
-pytest
-```
 
 ## Contributing
 
