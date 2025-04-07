@@ -1,3 +1,4 @@
+// crimecard-frontend\src\components\CrimeCard.jsx
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -15,6 +16,8 @@ import {
   FiCheck,
   FiFile
 } from 'react-icons/fi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHandcuffs } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
@@ -191,31 +194,100 @@ const CrimeCard = () => {
   };
 
   const getFieldValue = (fieldName, defaultText = 'Not specified') => {
+    // Add this near the top of your component render function
+    console.log("Crime Data:", crimeData);
+    // Check for direct fields first
     if (crimeData[fieldName] && crimeData[fieldName] !== defaultText) {
       return crimeData[fieldName];
     }
     
+    // Check parsed data
     if (parsedData && parsedData[fieldName]) {
       return parsedData[fieldName];
     }
     
-    if (fieldName === 'victim' || fieldName === 'suspect') {
-      if (crimeData.entities?.persons?.length > 0) {
-        const personIndex = fieldName === 'suspect' && crimeData.entities.persons.length > 1 ? 1 : 0;
-        return crimeData.entities.persons[personIndex];
+    // Handle specific backend field names that don't match frontend
+    if (fieldName === 'victim') {
+      // If victims is an array, return it as a list of <p> tags or line breaks
+      if (crimeData.entities?.victims?.length > 0) {
+        return (
+          <>
+            {crimeData.entities.victims.map((v, idx) => (
+              <p key={idx}>{v}</p>
+            ))}
+          </>
+        );
       }
-    } else if (fieldName === 'location') {
+    
+      // Fallback to primary_victim
+      if (crimeData.primary_victim) {
+        return <p>{crimeData.primary_victim}</p>;
+      }
+    
+      // Fallback to persons array
+      if (crimeData.entities?.persons?.length > 0) {
+        return <p>{crimeData.entities.persons[0]}</p>;
+      }
+    }
+     
+    
+    if (fieldName === 'suspect') {
+      // First try to get primary_suspect which is a single field
+      if (crimeData.primary_suspect) {
+        return crimeData.primary_suspect;
+      }
+      // Then try the suspects array
+      if (crimeData.entities?.suspects?.length > 0) {
+        return crimeData.entities.suspects.join(", ");
+      }
+      // Fallback to the second person in persons array if available
+      if (crimeData.entities?.persons?.length > 1) {
+        return crimeData.entities.persons[1];
+      }
+    } 
+    
+    if (fieldName === 'location') {
+      // Try to get the location field directly
+      if (crimeData.location) {
+        return crimeData.location;
+      }
+      // Fallback to locations array
       if (crimeData.entities?.locations?.length > 0) {
         return crimeData.entities.locations[0];
       }
-    } else if (fieldName === 'date') {
+    } 
+    
+    if (fieldName === 'date') {
+      // Try to get the date field directly
+      if (crimeData.date) {
+        return crimeData.date;
+      }
+      // Fallback to dates array
       if (crimeData.entities?.dates?.length > 0) {
         return crimeData.entities.dates[0];
       }
       return crimeData.createdAt ? new Date(crimeData.createdAt).toLocaleString() : defaultText;
-    } else if (fieldName === 'weapon') {
+    } 
+    
+    if (fieldName === 'weapon') {
+      // Try to get the weapon field directly
+      if (crimeData.weapon) {
+        return crimeData.weapon;
+      }
+      // Fallback to weapons array
       if (crimeData.entities?.weapons?.length > 0) {
         return crimeData.entities.weapons[0];
+      }
+    }
+    
+    if (fieldName === 'officer') {
+      // Try to get assigned_officer field which is what the backend returns
+      if (crimeData.assigned_officer) {
+        return crimeData.assigned_officer;
+      }
+      // Fallback to officers array
+      if (crimeData.entities?.officers?.length > 0) {
+        return crimeData.entities.officers[0];
       }
     }
     
@@ -323,13 +395,13 @@ const CrimeCard = () => {
               </div>
               <div className="detail-content">
                 <h4>Victim</h4>
-                <p>{getFieldValue('victim')}</p>
+                {getFieldValue('victim')}
               </div>
             </div>
             
             <div className="detail-item">
               <div className="detail-icon">
-                <FiUser />
+              <FontAwesomeIcon icon={faHandcuffs} />
               </div>
               <div className="detail-content">
                 <h4>Suspect</h4>
@@ -365,7 +437,7 @@ const CrimeCard = () => {
             </div>
             <div className="info-item">
               <h4>Assigned Officer</h4>
-              <p>{crimeData.officer || 'Not assigned'}</p>
+              <p>{getFieldValue('officer')}</p>
             </div>
             <div className="info-item">
               <h4>Severity Score</h4>

@@ -23,12 +23,26 @@ const crimeSchema = new mongoose.Schema({
   fileName: String,
   extractedText: String,
   summary: String,
+  headline: String,  // Add this
   entities: {
     persons: [String],
     locations: [String],
     dates: [String],
-    weapons: [String]
+    weapons: [String],
+    actions: [String],
+    victims: [String],  // Add this
+    suspects: [String], // Add this
+    officers: [String], // Add this
+    ages: Object        // Add this
   },
+  // Add these fields at the root level
+  primary_victim: String,
+  primary_suspect: String,
+  assigned_officer: String,
+  weapon: String,
+  location: String,
+  date: String,
+  confidence: Number,  // Add this too
   classification: String,
   severityScore: Number,
   createdAt: {

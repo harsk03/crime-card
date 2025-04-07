@@ -100,7 +100,21 @@ exports.processCrimeReport = async (req, res) => {
       manualData: inputMethod === 'manual' ? manualData : undefined,
       fileName: inputMethod === 'upload' ? fileName : undefined,
       extractedText: inputMethod === 'upload' ? extractedText : undefined,
-      ...nlpResults
+      // Add NLP result fields
+      summary: nlpResults.summary,
+      headline: nlpResults.headline,
+      classification: nlpResults.classification,
+      confidence: nlpResults.confidence,
+      severityScore: nlpResults.severityScore,
+      entities: nlpResults.entities,
+
+      // Mapped additional NLP fields
+      primary_victim: nlpResults.primary_victim,
+      primary_suspect: nlpResults.primary_suspect,
+      assigned_officer: nlpResults.assigned_officer,
+      weapon: nlpResults.weapon,
+      location: nlpResults.location,
+      date: nlpResults.date
     });
 
     await newCrime.save();

@@ -35,13 +35,13 @@ const ProcessingScreen = () => {
       className="processing-container scanner-animation"
     >
       <div className="processing-content">
-        <motion.div
+        {/* <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          style={{ fontSize: '3rem', marginBottom: '1rem' }}
+          style={{ fontSize: '3rem', marginBottom: 'rem' }}
         >
           <FiActivity />
-        </motion.div>
+        </motion.div> */}
         <h2>Analyzing Crime Report</h2>
         <p>Scanning evidence and extracting key information...</p>
         
