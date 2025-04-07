@@ -20,13 +20,30 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
+  // Check file extension
   const filetypes = /txt|pdf|docx/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = filetypes.test(file.mimetype);
+  
+  // Check mimetype - correct mapping
+  const validMimetypes = {
+    'text/plain': true,
+    'application/pdf': true,
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': true
+  };
+  
+  const mimetype = validMimetypes[file.mimetype];
 
   if (extname && mimetype) {
     return cb(null, true);
   } else {
+    // For debugging
+    console.log('File rejected:', {
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+      extname: path.extname(file.originalname).toLowerCase(),
+      extnameValid: extname,
+      mimetypeValid: mimetype
+    });
     cb(new Error('Only .txt, .pdf, and .docx files are allowed!'));
   }
 };

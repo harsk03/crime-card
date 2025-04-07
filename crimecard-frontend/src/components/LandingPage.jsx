@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { FiArrowRight, FiSearch, FiAlertTriangle, FiClock } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi'; //, FiSearch, FiAlertTriangle, FiClock
 import FeaturesSection from './FeaturesSection';
 import HowItWorks from './HowItWorks';
 import Testimonials from './Testimonials';
@@ -76,11 +76,11 @@ const LandingPage = () => {
             <div className="preview-content">
               <div className="preview-entity">
                 <span>Victim:</span>
-                <span>John Doe</span>
+                <span>Harshal Kale</span>
               </div>
               <div className="preview-entity">
                 <span>Location:</span>
-                <span>Downtown, NY</span>
+                <span>Pune, MH</span>
               </div>
               <div className="preview-entity">
                 <span>Weapon:</span>
@@ -88,13 +88,13 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="preview-footer">
-              <span>Source: NYPD Bulletin</span>
+              <span>Source: TOI Bulletin</span>
             </div>
           </div>
         </motion.div>
       </section>
 
-      {/* Stats Section */}
+      {/* Stats Section
       <section className="stats-section">
         <div className="stat-item">
           <motion.div 
@@ -129,7 +129,7 @@ const LandingPage = () => {
           <h3>99%</h3>
           <p>Accuracy</p>
         </div>
-      </section>
+      </section> */}
 
       {/* Features Section */}
       <FeaturesSection />
