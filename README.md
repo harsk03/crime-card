@@ -1,5 +1,5 @@
 # CrimeCard - Crime Report Analysis System </br>
-<h3>We read the scene, keep it clean.</h3>
+<h4>"We read the scene, keep it clean."</h4>
 
 
 A comprehensive solution for automated crime report processing, analysis, and visualization.
@@ -125,3 +125,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - spaCy for providing excellent NLP tools
 - MongoDB for database solutions
 - The open-source community for various libraries used in this project
+
+## Contact the developer 
+
+- Email : harshalkale2402@gmail.com
+- LinkedIn: https://www.linkedin.com/in/harshalvilaskale
